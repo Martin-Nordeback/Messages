@@ -51,6 +51,10 @@
 		0F7BA4A429E6B5620078C729 /* ChatAppSwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				0F7BA4B329E6B58C0078C729 /* Model */,
+				0F7BA4B529E6B6890078C729 /* View */,
+				0F7BA4B429E6B6800078C729 /* ViewModel */,
+				0F7BA4B629E6B6A00078C729 /* Utils */,
 				0F7BA4A529E6B5620078C729 /* ChatAppSwiftUIApp.swift */,
 				0F7BA4A729E6B5620078C729 /* ContentView.swift */,
 				0F7BA4A929E6B5630078C729 /* Assets.xcassets */,
@@ -65,6 +69,42 @@
 				0F7BA4AC29E6B5630078C729 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0F7BA4B329E6B58C0078C729 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		0F7BA4B429E6B6800078C729 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		0F7BA4B529E6B6890078C729 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F7BA4B729E6B6DB0078C729 /* Authentication */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F7BA4B629E6B6A00078C729 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		0F7BA4B729E6B6DB0078C729 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
