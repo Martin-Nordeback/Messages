@@ -1,9 +1,7 @@
-//
-//  SettingsView.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-20.
-//
+
+//TODO: 
+//TODO:
+
 
 import SwiftUI
 
@@ -16,5 +14,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView()
+            .preferredColorScheme(.dark)
     }
 }

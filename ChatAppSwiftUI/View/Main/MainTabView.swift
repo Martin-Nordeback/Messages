@@ -1,14 +1,12 @@
-//
-//  MainTabView.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-20.
-//
+
+//TODO: Searchfield
+//TODO:
 
 import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedIndex = 0
+    @State private var searchText = ""
 
     var body: some View {
         NavigationStack {
@@ -31,6 +29,7 @@ struct MainTabView: View {
             }
             .navigationTitle(tabTitle)
         }
+        .searchable(text: $searchText)
     }
 
     var tabTitle: String {
@@ -45,5 +44,6 @@ struct MainTabView: View {
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
+            .preferredColorScheme(.dark)
     }
 }
