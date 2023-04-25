@@ -1,17 +1,18 @@
-//
-//  ChatAppSwiftUIApp.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-12.
-//
 
+import Firebase
 import SwiftUI
 
 @main
 struct ChatAppSwiftUIApp: App {
+    //configure firebase the first time it runs with all necessary infrastructure for other Firebase services to work properly.
+    init() {
+        FirebaseApp.configure()
+    }
+    //this return the main view of the app,
     var body: some Scene {
         WindowGroup {
-            MainTabView()
+            //this creates only one instance of AuthViewModel
+            ContentView().environmentObject(AuthViewModel.shared)
         }
     }
 }

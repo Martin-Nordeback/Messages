@@ -1,35 +1,46 @@
 
-//TODO: Searchfield
-//TODO:
+// TODO: Searchfield
+// TODO:
 
 import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedIndex = 0
     @State private var searchText = ""
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
-        NavigationStack {
-            TabView(selection: $selectedIndex) {
-                ConversationsView()
-                    .onTapGesture {
-                        selectedIndex = 0
-                    }
-                    .tabItem {
-                        Image(systemName: "bubble.left")}
-                    .tag(0)
+        if let user = viewModel.currentUser {
+            NavigationStack {
+                TabView(selection: $selectedIndex) {
+                    ConversationsView()
+                        .onTapGesture {
+                            selectedIndex = 0
+                        }
+                        .tabItem {
+                            Image(systemName: "bubble.left")
+                                .foregroundColor(Color.accentColor)
+                        }
+                        .tag(0)
 
-                SettingsView()
-                    .onTapGesture {
-                        selectedIndex = 1
-                    }
-                    .tabItem {
-                        Image(systemName: "gear")}
-                    .tag(1)
+                    SettingsView(user: user)
+                        .onTapGesture {
+                            selectedIndex = 1
+                        }
+                        .tabItem {
+                            Image(systemName: "gear")
+                        }
+                        .tag(1)
+                }
+
+                .navigationTitle(tabTitle)
             }
-            .navigationTitle(tabTitle)
+            .searchable(text: $searchText)
+            
+        } else {
+            ///
         }
-        .searchable(text: $searchText)
+       
     }
 
     var tabTitle: String {
@@ -41,9 +52,9 @@ struct MainTabView: View {
     }
 }
 
-struct MainTabView_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTabView()
-            .preferredColorScheme(.dark)
-    }
-}
+//struct MainTabView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        MainTabView()
+//            .preferredColorScheme(.dark)
+//    }
+//}

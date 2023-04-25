@@ -1,59 +1,36 @@
 
-// TODO:
-// TODO:
-// Inside a uniq chat
-
 import SwiftUI
 
 struct ChatView: View {
     @State private var messageText = ""
+    @ObservedObject var viewModel: ChatViewModel
+    private let user: User
+
+    init(user: User) {
+        self.user = user
+        viewModel = ChatViewModel(user: user)
+    }
+
     var body: some View {
         VStack {
+            // messages
             ScrollView {
-                VStack {
-                    ForEach(0 ... 10, id: \.self) { _ in
-                        MessageView(isFromCurrentUser: true, messageText: "Hello my name is Martin")
+                VStack(alignment: .leading, spacing: 12) {
+                    ForEach(viewModel.messages) { message in
+                        MessageView(viewModel: MessageViewModel(message))
                     }
                 }
             }
-            VStack {
-                Rectangle()
-                    .foregroundColor(Color(.separator))
-                    .frame(width: UIScreen.main.bounds.width, height: 0.75)
 
-                HStack {
-                    TextField("Message..", text: $messageText)
-                        .textFieldStyle(PlainTextFieldStyle())
-                        .font(.body)
-                        .frame(minHeight: 30)
-
-                    Button {
-                        sendMessage()
-                    } label: {
-                        Text("Send")
-                            .bold()
-                            .foregroundColor(.orange)
-                    }
-                }
-                .padding(.bottom, 8)
-                .padding(.horizontal)
-                
-            }
+            CustomInputView(text: $messageText, action: sendMessage)
         }
-        .navigationTitle("Name")
+        .navigationTitle(user.username)
         .navigationBarTitleDisplayMode(.inline)
-        .padding(.bottom)
+        .padding(.vertical)
     }
 
     func sendMessage() {
-        print("Send message \(messageText)")
+        viewModel.sendMessage(messageText)
         messageText = ""
-    }
-}
-
-struct ChatView_Previews: PreviewProvider {
-    static var previews: some View {
-        ChatView()
-            .preferredColorScheme(.dark)
     }
 }

@@ -4,20 +4,21 @@
 
 import SwiftUI
 
+//rep the user in the newMessageView
 struct UserCell: View {
+    let user: User
     var body: some View {
         VStack {
             HStack {
                 // change default picutre
-                Image(systemName: "sun.min")
+                Image("dummypic")
 
-                // Message info
 
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Martin Nordeback")
+                    Text(user.username)
                         .font(.system(size: 14, weight: .semibold))
 
-                    Text("@something?!")
+                    Text(user.fullname)
                         .font(.system(size: 14))
                 }
                 .foregroundColor(.primary)
@@ -30,9 +31,9 @@ struct UserCell: View {
     }
 }
 
-struct UserCell_Previews: PreviewProvider {
-    static var previews: some View {
-        UserCell()
-            .preferredColorScheme(.dark)
-    }
-}
+//struct UserCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        UserCell()
+//            .preferredColorScheme(.dark)
+//    }
+//}

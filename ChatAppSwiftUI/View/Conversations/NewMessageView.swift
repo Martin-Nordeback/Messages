@@ -1,45 +1,43 @@
 
-//TODO: 
-//TODO: SearchField
-//TODO: Back button when in focus
+// TODO:
+// TODO: SearchField
+// TODO:
 
 import SwiftUI
 
 struct NewMessageView: View {
-    
     @Binding var showChatView: Bool
+    @Environment(\.presentationMode) var mode
     @State private var searchText = ""
     @State private var isEditing = false
-    @Environment(\.presentationMode) var mode
-    
-    
+    @Binding var user: User?
+    @ObservedObject var viewModel = NewMessageViewModel()
+
     var body: some View {
-        ScrollView {
-            
-            //Add search bar
-            
-            
-            VStack(alignment: .leading) {
-                ForEach(0 ... 10, id: \.self) { _ in
-                    Button {
-                        showChatView.toggle()
-                        mode.wrappedValue.dismiss()
-                    } label: {
-                        UserCell()
+        NavigationStack {
+            ScrollView {
+                // Add search bar
+
+                VStack(alignment: .leading) {
+                    ForEach(viewModel.users) { user in
+                        Button {
+                            showChatView.toggle()
+                            self.user = user
+                            mode.wrappedValue.dismiss()
+                        } label: {
+                            UserCell(user: user)
+                        }
                     }
                 }
             }
         }
-//        .toolbarTitleMenu {
-//            print("going function back here")
-//        }
-//        .searchable(text: $searchText)
+        .searchable(text: $searchText)
     }
 }
 
-struct NewMessageView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewMessageView(showChatView: .constant(true))
-            .preferredColorScheme(.dark)
-    }
-}
+//struct NewMessageView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewMessageView(showChatView: .constant(true))
+//            .preferredColorScheme(.dark)
+//    }
+//}

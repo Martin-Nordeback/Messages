@@ -11,6 +11,8 @@ struct LoginView: View {
     
     @State private var email: String = ""
     @State private var password: String = ""
+    
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         NavigationStack {
@@ -51,14 +53,14 @@ struct LoginView: View {
                     } label: {
                         Text("Forgot password?")
                             .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.white)
+                            .foregroundColor(.green)
                             .padding(.top)
                             .padding(.trailing, 20)
                     }
                 }
 
                 Button {
-                    print("Sign in action here")
+                    viewModel.login(withEmail: email, password: password)
                 } label: {
                     Text("Sign in")
                         .font(.headline)
@@ -74,6 +76,7 @@ struct LoginView: View {
 
                 NavigationLink {
                     RegistrationView()
+                        .navigationBarBackButtonHidden(true)
                 } label: {
                     HStack {
                         Text("Don't have an account yet?")

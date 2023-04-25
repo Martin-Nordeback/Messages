@@ -1,21 +1,19 @@
-//
-//  ContentView.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-12.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    //declared in @main, and it's used to inject the AuthViewModel, so we can access its properties
+    @EnvironmentObject var viewModel: AuthViewModel
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        //Group render to different views depend of if the user is logged in or not
+        Group {
+            if viewModel.userSession != nil {
+                MainTabView()
+            } else {
+                LoginView()
+            }
         }
-        .padding()
     }
 }
 

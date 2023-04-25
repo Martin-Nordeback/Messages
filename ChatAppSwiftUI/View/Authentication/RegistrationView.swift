@@ -13,16 +13,23 @@ struct RegistrationView: View {
     @State private var fullName: String = ""
     @State private var password: String = ""
 
+    //so we can dismiss the current view
     @Environment(\.presentationMode) var mode
+    @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
         VStack {
-            Spacer()
+            NavigationLink(
+                destination: MainTabView(),
+                isActive: $viewModel.didAuthenticateUser,
+                label: {})
+            
+            
             VStack(alignment: .leading, spacing: 6) {
-                Text("Hell yeah!!")
+                Text("Get started.")
                     .font(.largeTitle)
                     .bold()
-                Text("What are you waiting for?")
+                Text("Create your account.")
                     .font(.title)
                     .bold()
                     .foregroundColor(.orange)
@@ -36,12 +43,12 @@ struct RegistrationView: View {
                         text: $email)
                     LoginTextFieldsView(
                         imageName: "lock",
-                        placeHolderText: "Sir Name",
+                        placeHolderText: "Username",
                         isSecureTextField: false,
                         text: $userName)
                     LoginTextFieldsView(
                         imageName: "lock",
-                        placeHolderText: "Last Name",
+                        placeHolderText: "Fullname",
                         isSecureTextField: false,
                         text: $fullName)
                     LoginTextFieldsView(
@@ -56,7 +63,7 @@ struct RegistrationView: View {
             .padding([.leading])
 
             Button {
-                print("Sign up code here")
+                viewModel.register(withEmail: email, password: password, fullname: fullName, username: userName)
             } label: {
                 Text("Sign up")
                     .font(.headline)
@@ -67,8 +74,9 @@ struct RegistrationView: View {
                     .padding()
             }
             .shadow(color: .red, radius: 10, x: 0.0, y: 0.0)
+            .padding(.top, 26)
 
-            Spacer()
+            
 
             Button {
                 mode.wrappedValue.dismiss()
