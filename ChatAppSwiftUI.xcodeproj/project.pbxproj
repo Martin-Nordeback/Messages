@@ -215,6 +215,7 @@
 				0FAD245D29F79024008FA4D1 /* Message.swift */,
 				0F6BC1AD29FA4B4800240E79 /* UserEntityModel.swift */,
 				0F6BC1AF29FA4B6200240E79 /* MessageEntityModel.swift */,
+				0F6BC1B129FA538900240E79 /* CoreDataStack.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -228,7 +229,6 @@
 				0FAD246529F7941C008FA4D1 /* ConversationCellViewModel.swift */,
 				0FAD246729F79461008FA4D1 /* MessageViewModel.swift */,
 				0FAD246929F79498008FA4D1 /* ChatViewModel.swift */,
-				0F6BC1B129FA538900240E79 /* CoreDataStack.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

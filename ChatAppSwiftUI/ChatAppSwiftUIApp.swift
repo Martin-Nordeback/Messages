@@ -8,11 +8,15 @@ struct ChatAppSwiftUIApp: App {
     init() {
         FirebaseApp.configure()
     }
+    
+    let persistenceController = CoreDataStack.sharedCoreData
+    
     //this return the main view of the app,
     var body: some Scene {
         WindowGroup {
             //this creates only one instance of AuthViewModel
             ContentView().environmentObject(AuthViewModel.shared)
+                .environment(\.managedObjectContext, persistenceController.persistentContainer.viewContext)
         }
     }
 }
