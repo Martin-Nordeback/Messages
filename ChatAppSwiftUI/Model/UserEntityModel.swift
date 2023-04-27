@@ -14,4 +14,12 @@ public class UserEntityModel: NSManagedObject, Identifiable {
     @NSManaged public var fullname: String
     @NSManaged public var email: String
     @NSManaged public var messages: Set<MessageEntityModel>
+    
+    func fromUser(user: User) {
+        id = user.id
+        username = user.username
+        fullname = user.fullname
+        email = user.email
+    }
+
 }
