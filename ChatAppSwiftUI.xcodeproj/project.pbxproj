@@ -16,6 +16,7 @@
 		0F6778EE29F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.03.16.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6778E629F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.03.16.png */; };
 		0F6778EF29F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Plus - 2023-04-25 at 13.05.59.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6778E729F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Plus - 2023-04-25 at 13.05.59.png */; };
 		0F6778F029F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.06.06.png in Resources */ = {isa = PBXBuildFile; fileRef = 0F6778E829F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.06.06.png */; };
+		0F6BC1AC29FA44CD00240E79 /* ChatAppModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0F6BC1AA29FA44CD00240E79 /* ChatAppModel.xcdatamodeld */; };
 		0F7A630D29F1213F00A97234 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A630C29F1213F00A97234 /* SettingsView.swift */; };
 		0F7A630F29F1216100A97234 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A630E29F1216100A97234 /* ChatView.swift */; };
 		0F7A631129F1217800A97234 /* ConversationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7A631029F1217800A97234 /* ConversationsView.swift */; };
@@ -60,6 +61,7 @@
 		0F6778E629F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.03.16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.03.16.png"; sourceTree = "<group>"; };
 		0F6778E729F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Plus - 2023-04-25 at 13.05.59.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 14 Plus - 2023-04-25 at 13.05.59.png"; sourceTree = "<group>"; };
 		0F6778E829F92DE000EDA649 /* Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.06.06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Simulator Screenshot - iPhone 14 Pro - 2023-04-25 at 13.06.06.png"; sourceTree = "<group>"; };
+		0F6BC1AB29FA44CD00240E79 /* ChatAppModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatAppModel.xcdatamodel; sourceTree = "<group>"; };
 		0F7A630C29F1213F00A97234 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		0F7A630E29F1216100A97234 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		0F7A631029F1217800A97234 /* ConversationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsView.swift; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				0FAD244C29F78B77008FA4D1 /* GoogleService-Info.plist */,
 				0F7BA4A929E6B5630078C729 /* Assets.xcassets */,
 				0F7BA4AB29E6B5630078C729 /* Preview Content */,
+				0F6BC1AA29FA44CD00240E79 /* ChatAppModel.xcdatamodeld */,
 			);
 			path = ChatAppSwiftUI;
 			sourceTree = "<group>";
@@ -345,6 +348,7 @@
 				0F7BA4B929E6B7320078C729 /* LoginView.swift in Sources */,
 				0FAD246229F791C2008FA4D1 /* ConversationsViewModel.swift in Sources */,
 				0F7A630D29F1213F00A97234 /* SettingsView.swift in Sources */,
+				0F6BC1AC29FA44CD00240E79 /* ChatAppModel.xcdatamodeld in Sources */,
 				0F7BA4BD29E6EBA40078C729 /* LoginTextFieldsView.swift in Sources */,
 				0FAD245E29F79024008FA4D1 /* Message.swift in Sources */,
 				0F7A631129F1217800A97234 /* ConversationsView.swift in Sources */,
@@ -608,6 +612,19 @@
 			productName = FirebaseStorage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		0F6BC1AA29FA44CD00240E79 /* ChatAppModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0F6BC1AB29FA44CD00240E79 /* ChatAppModel.xcdatamodel */,
+			);
+			currentVersion = 0F6BC1AB29FA44CD00240E79 /* ChatAppModel.xcdatamodel */;
+			path = ChatAppModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0F7BA49A29E6B5620078C729 /* Project object */;
 }
