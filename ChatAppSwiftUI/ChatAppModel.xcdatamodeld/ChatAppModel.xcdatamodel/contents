@@ -14,6 +14,6 @@
         <attribute name="fullname" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="username" optional="YES" attributeType="String"/>
-        <relationship name="messages" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MessageEntity" inverseName="user" inverseEntity="MessageEntity"/>
+        <relationship name="messages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MessageEntity" inverseName="user" inverseEntity="MessageEntity"/>
     </entity>
 </model>

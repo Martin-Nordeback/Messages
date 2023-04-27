@@ -1,9 +1,4 @@
-//
-//  User.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-25.
-//
+
 
 import FirebaseFirestoreSwift
 import Foundation

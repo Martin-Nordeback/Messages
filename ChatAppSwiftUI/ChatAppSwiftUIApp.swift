@@ -1,6 +1,7 @@
 
 import Firebase
 import SwiftUI
+import CoreData
 
 @main
 struct ChatAppSwiftUIApp: App {

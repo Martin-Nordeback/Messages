@@ -8,8 +8,7 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
     @Published var messages = [Message]()
     // represent the other user
     let user: User
-    private var fetchedResultsController: NSFetchedResultsController<MessageEntityModel>!
-    
+    private var fetchedResultsController: NSFetchedResultsController<MessageEntity>!
 
     init(user: User) {
         self.user = user
@@ -18,12 +17,16 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
         fetchMessagesFromFirebase()
     }
     
+// MARK: FETCHMESSAGESFROMCOREDATA
+    
     func fetchMessagesFromCoreData() {
         let context = CoreDataStack.sharedCoreData.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<MessageEntityModel> = MessageEntityModel.fetchRequest()
+//        let fetchRequest: NSFetchRequest<MessageEntityModel> = MessageEntityModel.fetchRequest()
+        let fetchRequest: NSFetchRequest<MessageEntity> = MessageEntity.fetchRequest()
+
 
         // add a sort descriptor to the fetch request to avoid the "sort descriptors missing" error
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \MessageEntityModel.timestamp, ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \MessageEntity.timestamp, ascending: true)]
 
         fetchedResultsController = NSFetchedResultsController(
             fetchRequest: fetchRequest,
@@ -35,36 +38,14 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
 
         do {
             try fetchedResultsController.performFetch()
+//            messages = fetchedResultsController.fetchedObjects?.map { Message(messageEntity: $0 as! MessageEntity) } ?? []
             messages = fetchedResultsController.fetchedObjects?.map { Message(messageEntity: $0) } ?? []
         } catch {
             print("Error fetching messages from CoreData: \(error)")
         }
     }
-
     
-//    func fetchMessagesFromCoreData() {
-//        let context = CoreDataStack.sharedCoreData.persistentContainer.viewContext
-//        //let fetchRequest: NSFetchRequest<MessageEntityModel> = MessageEntityModel.fetchRequest() as! NSFetchRequest<MessageEntityModel>
-//        let fetchRequest: NSFetchRequest<MessageEntityModel> = MessageEntityModel.fetchRequest()
-//        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \MessageEntity.timestamp, ascending: true)]
-//
-//        fetchedResultsController = NSFetchedResultsController(
-//            fetchRequest: fetchRequest,
-//            managedObjectContext: context,
-//            sectionNameKeyPath: nil,
-//            cacheName: nil
-//        )
-//        fetchedResultsController.delegate = self
-//
-//        do {
-//            try fetchedResultsController.performFetch()
-//            //messages = fetchedResultsController.fetchedObjects?.map { Message(messageEntityModel: $0) } ?? []
-//
-//        } catch {
-//            print("Error fetching messages from CoreData: \(error)")
-//        }
-//    }
-
+// MARK: FETCHMESSAGESFROMFIREBASE
     func fetchMessagesFromFirebase() {
         guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
         guard let chatPartnerId = user.id else { return }
@@ -86,22 +67,19 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
             // Convert Message to MessageWithDate
             let messagesToSave = messages
 
-
             self.saveMessagesToCoreData(messages: messagesToSave)
             self.messages.append(contentsOf: messages)
         }
     }
 
-    
     func saveMessagesToCoreData(messages: [Message]) {
         let context = CoreDataStack.sharedCoreData.persistentContainer.viewContext
         for message in messages {
-            let messageEntity = MessageEntityModel(context: context)
+            let messageEntity = MessageEntity(context: context)
             messageEntity.fromMessageWithDate(message: message)
         }
         CoreDataStack.sharedCoreData.saveContext()
     }
-
 
     func sendMessage(_ messageText: String) {
         guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
@@ -124,14 +102,14 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
                                    "timestamp": Timestamp(date: Date()),
                                    "id": messageId,
         ]
+        
+        var message = Message(from: data)
+        message.user = user
+        saveMessagesToCoreData(messages: [message])
+
         currentUserRef.setData(data)
         chatPartnerRef.document(messageId).setData(data)
         recentCurrentRef.setData(data)
         recentPartnerRef.setData(data)
-
-//        if let message = try? Message(from: data) {
-//            message.user = user
-//            saveMessagesToCoreData(messages: [message])
-//        }
     }
 }
