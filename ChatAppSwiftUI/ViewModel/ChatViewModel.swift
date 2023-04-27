@@ -56,9 +56,11 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
             .order(by: "timestamp", descending: false)
 
         query.addSnapshotListener { snapshot, _ in
-            guard let changes = snapshot?.documentChanges.filter({ $0.type == .added }) else { return }
+            guard let changes = snapshot?.documentChanges, !changes.isEmpty else { return }
+            let addedChanges = changes.filter { $0.type == .added }
+            guard !addedChanges.isEmpty else { return }
 
-            var messages = changes.compactMap { try? $0.document.data(as: Message.self) }
+            var messages = addedChanges.compactMap { try? $0.document.data(as: Message.self) }
 
             for (index, message) in messages.enumerated() where message.fromId != currentUid {
                 messages[index].user = self.user
@@ -69,6 +71,7 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
 
             self.saveMessagesToCoreData(messages: messagesToSave)
             self.messages.append(contentsOf: messages)
+
         }
     }
 

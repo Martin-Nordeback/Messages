@@ -9,7 +9,7 @@ struct ChatAppSwiftUIApp: App {
     init() {
         FirebaseApp.configure()
     }
-    
+//    reference to the singleton, same reason as AuthViewModel
     let persistenceController = CoreDataStack.sharedCoreData
     
     //this return the main view of the app,

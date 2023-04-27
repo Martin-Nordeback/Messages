@@ -1,5 +1,5 @@
 
-// TODO:
+// TODO: When starting a new chat you should get straigt in to that 
 // TODO: SearchField
 // TODO:
 
@@ -35,9 +35,3 @@ struct NewMessageView: View {
     }
 }
 
-//struct NewMessageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewMessageView(showChatView: .constant(true))
-//            .preferredColorScheme(.dark)
-//    }
-//}

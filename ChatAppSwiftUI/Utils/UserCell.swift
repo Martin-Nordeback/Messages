@@ -1,18 +1,15 @@
 
-//TODO: Generate a profile picture
-//TODO:
+// TODO: Generate a profile picture
 
 import SwiftUI
 
-//rep the user in the newMessageView
+// represent the user in the newMessageView
 struct UserCell: View {
     let user: User
     var body: some View {
         VStack {
             HStack {
-                // change default picutre
                 Image("dummypic")
-
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(user.username)
@@ -25,15 +22,7 @@ struct UserCell: View {
                 Spacer()
             }
             .padding(.horizontal)
-            
         }
         .padding(.top)
     }
 }
-
-//struct UserCell_Previews: PreviewProvider {
-//    static var previews: some View {
-//        UserCell()
-//            .preferredColorScheme(.dark)
-//    }
-//}

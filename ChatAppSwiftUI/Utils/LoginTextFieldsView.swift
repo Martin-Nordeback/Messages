@@ -1,9 +1,3 @@
-//
-//  LoginTextFieldsView.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-12.
-//
 
 import SwiftUI
 

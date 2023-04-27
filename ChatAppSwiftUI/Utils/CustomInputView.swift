@@ -1,6 +1,6 @@
 
 import SwiftUI
-// is reusable component 
+// reusable component, for later stage chat channels and more
 struct CustomInputView: View {
     @Binding var text: String
     var action: () -> Void

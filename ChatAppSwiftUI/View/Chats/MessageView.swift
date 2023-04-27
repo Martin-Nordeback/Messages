@@ -1,7 +1,8 @@
 
 import SwiftUI
-
+// Representing the inside chat where text get display on top of ChatBubbleShaped that changes with the text
 struct MessageView: View {
+//    the viewModel takes in messages and return to AuthViewModel
     let viewModel: MessageViewModel
 
     var body: some View {
@@ -39,11 +40,3 @@ struct MessageView: View {
         }
     }
 }
-
-// struct MessageView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MessageView(isFromCurrentUser: false, messageText: "Hello Gray bubble with profile image")
-////        MessageView(isFromCurrentUser: true, messageText: "Hello blu bubble without profile image")
-//            .preferredColorScheme(.dark)
-//    }
-// }

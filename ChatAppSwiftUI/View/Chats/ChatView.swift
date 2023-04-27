@@ -1,6 +1,6 @@
 
 import SwiftUI
-
+// all the view under this folder is combined to display the inside chat conversation
 struct ChatView: View {
     @State private var messageText = ""
     @ObservedObject var viewModel: ChatViewModel
@@ -28,7 +28,7 @@ struct ChatView: View {
         .navigationBarTitleDisplayMode(.inline)
         .padding(.vertical)
     }
-
+// sending message to the chatView model and clearing the inputField
     func sendMessage() {
         viewModel.sendMessage(messageText)
         messageText = ""

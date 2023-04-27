@@ -1,6 +1,7 @@
 
 import SwiftUI
 
+//chat bubble where the user text get displayed
 struct ChatBubbleShape: Shape {
     var isFromCurrentUser: Bool
     

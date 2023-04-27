@@ -1,10 +1,7 @@
-//
-//  MessageEntity.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-27.
-//
-
+/*
+ We need the MessageEntity extension to define the fromMessageWithDate method,
+ which is a custom method that we're using to convert Message objects into MessageEntity objects.
+ */
 import Foundation
 extension MessageEntity {
     func fromMessageWithDate(message: Message) {

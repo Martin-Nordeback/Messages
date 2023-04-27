@@ -2,11 +2,14 @@
 // TODO: Searchfield
 // TODO:
 
+// Main view after user is authenticated,
+
 import SwiftUI
 
 struct MainTabView: View {
     @State private var selectedIndex = 0
     @State private var searchText = ""
+//    lissens to changes inside the UI
     @EnvironmentObject var viewModel: AuthViewModel
 
     var body: some View {
@@ -36,13 +39,13 @@ struct MainTabView: View {
                 .navigationTitle(tabTitle)
             }
             .searchable(text: $searchText)
-            
+
         } else {
             ///
         }
-       
     }
 
+//    computedproperty to display correct title of the users selected tab
     var tabTitle: String {
         switch selectedIndex {
         case 0: return "Chats"
@@ -51,10 +54,3 @@ struct MainTabView: View {
         }
     }
 }
-
-//struct MainTabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MainTabView()
-//            .preferredColorScheme(.dark)
-//    }
-//}

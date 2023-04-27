@@ -2,7 +2,7 @@
 import Firebase
 import FirebaseFirestoreSwift
 
-// message model, check firebase
+// message model, for both firebase and coredata
 struct Message: Identifiable, Decodable {
     @DocumentID var id: String?
     let fromId: String

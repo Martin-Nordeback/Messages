@@ -1,4 +1,4 @@
-
+//TODO: Start setting up this page.
 
 import SwiftUI
 
@@ -14,6 +14,7 @@ struct SettingsView: View {
             Color(.systemGroupedBackground)
                 .ignoresSafeArea()
 
+//            signout both from app and firestore
             Button {
                 AuthViewModel.shared.signout()
             } label: {

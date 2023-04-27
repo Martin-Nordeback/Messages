@@ -1,19 +1,15 @@
-//
-//  RegistrationView.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-12.
-//
 
 import SwiftUI
 
 struct RegistrationView: View {
+    
+    //    listens to changes in UI
     @State private var email: String = ""
     @State private var userName: String = ""
     @State private var fullName: String = ""
     @State private var password: String = ""
 
-    //so we can dismiss the current view
+    // so we can dismiss the current view
     @Environment(\.presentationMode) var mode
     @EnvironmentObject var viewModel: AuthViewModel
 
@@ -23,8 +19,7 @@ struct RegistrationView: View {
                 destination: MainTabView(),
                 isActive: $viewModel.didAuthenticateUser,
                 label: {})
-            
-            
+
             VStack(alignment: .leading, spacing: 6) {
                 Text("Get started.")
                     .font(.largeTitle)
@@ -61,7 +56,7 @@ struct RegistrationView: View {
                 .padding(.top)
             }
             .padding([.leading])
-
+//                calls the register function inside AuthViewModel
             Button {
                 viewModel.register(withEmail: email, password: password, fullname: fullName, username: userName)
             } label: {
@@ -75,8 +70,6 @@ struct RegistrationView: View {
             }
             .shadow(color: .red, radius: 10, x: 0.0, y: 0.0)
             .padding(.top, 26)
-
-            
 
             Button {
                 mode.wrappedValue.dismiss()
@@ -94,10 +87,3 @@ struct RegistrationView: View {
         }
     }
 }
-
-//struct RegistrationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RegistrationView()
-//            .preferredColorScheme(.dark)
-//    }
-//}

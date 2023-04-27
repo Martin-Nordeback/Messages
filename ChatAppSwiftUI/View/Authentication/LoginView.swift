@@ -1,14 +1,8 @@
-//
-//  LoginView.swift
-//  ChatAppSwiftUI
-//
-//  Created by Martin Nordebäck on 2023-04-12.
-//
 
 import SwiftUI
 
 struct LoginView: View {
-    
+//    listens to changes in UI 
     @State private var email: String = ""
     @State private var password: String = ""
     
@@ -58,7 +52,7 @@ struct LoginView: View {
                             .padding(.trailing, 20)
                     }
                 }
-
+//                calls the login function inside AuthViewModel
                 Button {
                     viewModel.login(withEmail: email, password: password)
                 } label: {

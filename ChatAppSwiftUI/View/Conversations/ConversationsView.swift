@@ -7,7 +7,7 @@ import SwiftUI
 struct ConversationsView: View {
     @State private var showNewMessageView = false
     @State private var showChatView = false
-    //rep the user for chat
+    //ref the user for chat
     @State var selectedUser: User?
     @ObservedObject var viewModel = ConversationsViewModel()
 
