@@ -2,7 +2,7 @@ import CoreData
 import Firebase
 import Foundation
 
-// allow the class to make changes to the UI
+// ChatViewModel class that handles the business logic for a chat view, fetching messages from either Core Data or Firebase, and sending new messages.
 class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     // changes to Message will update UI directly
     @Published var messages = [Message]()
@@ -13,15 +13,14 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
     init(user: User) {
         self.user = user
         super.init()
-//        fetchMessagesFromCoreData()
         fetchMessagesFromFirebase()
     }
 
     // MARK: FETCHMESSAGESFROMCOREDATA
 
     func fetchMessagesFromCoreData() {
+//         NSFetchRequest to retrieve messages from Core Data
         let context = CoreDataStack.sharedCoreData.persistentContainer.viewContext
-//        let fetchRequest: NSFetchRequest<MessageEntityModel> = MessageEntityModel.fetchRequest()
         let fetchRequest: NSFetchRequest<MessageEntity> = MessageEntity.fetchRequest()
 
         // add a sort descriptor to the fetch request to avoid the "sort descriptors missing" error
@@ -37,7 +36,6 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
 
         do {
             try fetchedResultsController.performFetch()
-//            messages = fetchedResultsController.fetchedObjects?.map { Message(messageEntity: $0 as! MessageEntity) } ?? []
             messages = fetchedResultsController.fetchedObjects?.map { Message(messageEntity: $0) } ?? []
         } catch {
             print("Error fetching messages from CoreData: \(error)")
@@ -49,12 +47,13 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
     func fetchMessagesFromFirebase() {
         guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
         guard let chatPartnerId = user.id else { return }
-
+        // retrieve messages from the chat partner user
         let query = COLLECTION_MESSAGES
             .document(currentUid)
             .collection(chatPartnerId)
             .order(by: "timestamp", descending: false)
 
+        // listens for changes to the data in real-time. When changes occur, the function filters the changes to only include added
         query.addSnapshotListener { snapshot, _ in
             guard let changes = snapshot?.documentChanges, !changes.isEmpty else {
                 self.fetchMessagesFromCoreData()
@@ -71,7 +70,7 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
 
             // Convert Message to MessageWithDate
             let messagesToSave = messages
-
+            // saves the messages to Core Data, and appends the messages to the messages property.
             self.saveMessagesToCoreData(messages: messagesToSave)
             self.messages.append(contentsOf: messages)
         }

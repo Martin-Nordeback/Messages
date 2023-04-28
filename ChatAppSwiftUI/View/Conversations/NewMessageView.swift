@@ -1,6 +1,6 @@
 
 // TODO: When starting a new chat you should get straigt in to that
-// TODO: SearchField
+// TODO: SearchField functionality
 // TODO:
 
 import SwiftUI
@@ -14,33 +14,30 @@ struct NewMessageView: View {
     @ObservedObject var viewModel = NewMessageViewModel()
 
     var body: some View {
-        NavigationView {
-            ScrollView {
-                VStack(alignment: .leading) {
-                    SearchBar(text: $searchText, isEditing: $isEditing)
+        ScrollView {
+            SearchBar(text: $searchText, isEditing: $isEditing)
+                .onTapGesture {
+                    isEditing.toggle()
+                }
+                .padding()
 
-                    ForEach(viewModel.users) { user in
-                        Button(action: {
-                            showChatView.toggle()
-                            self.user = user
-                            mode.wrappedValue.dismiss()
-                        }, label: {
-                            UserCell(user: user)
-                        })
+            VStack(alignment: .leading) {
+                ForEach(viewModel.users) { user in
+                    Button {
+                        showChatView.toggle()
+                        self.user = user
+                        mode.wrappedValue.dismiss()
+                        print("Selected user: \(user.username), showChatView: \(showChatView)")
+                    } label: {
+                        UserCell(user: user)
                     }
                 }
-                .padding(.top)
             }
-            .onAppear {
-                viewModel.fetchUsers()
-            }
-            .navigationTitle("New Chat")
-            .navigationBarTitleDisplayMode(.inline)
-            .navigationBarItems(trailing: Button(action: {
-                mode.wrappedValue.dismiss()
-            }, label: {
-                Text("Cancel")
-            }))
+            .padding(.top)
+        }
+        .onAppear {
+//            calls the object, which retrieves the list of users from Firestore.
+            viewModel.fetchUsers()
         }
     }
 }

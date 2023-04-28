@@ -2,7 +2,6 @@
 import SwiftUI
 
 struct RegistrationView: View {
-    
     //    listens to changes in UI
     @State private var email: String = ""
     @State private var userName: String = ""
@@ -21,6 +20,8 @@ struct RegistrationView: View {
                 label: {})
 
             VStack(alignment: .leading, spacing: 6) {
+                HStack { Spacer() }
+                
                 Text("Get started.")
                     .font(.largeTitle)
                     .bold()
@@ -30,7 +31,7 @@ struct RegistrationView: View {
                     .foregroundColor(.orange)
                     .shadow(color: .red, radius: 10, x: 0.0, y: 2.0)
 
-                VStack(spacing: 22) {
+                VStack(spacing: 30) {
                     LoginTextFieldsView(
                         imageName: "envelope",
                         placeHolderText: "Email",

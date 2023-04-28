@@ -36,6 +36,10 @@ struct ChatView: View {
         .navigationTitle(user.username)
         .navigationBarTitleDisplayMode(.inline)
         .padding(.vertical)
+        .onDisappear {
+            ConversationsView()
+            print("ChatView disappeared.")
+        }
     }
 
     // sending message to the chatView model and clearing the inputField

@@ -8,7 +8,7 @@ class CoreDataStack {
 //     This prevents the creation of additional instances of the CoreDataStack class from outside the class itself.
     private init() {}
 
-//    ini
+//    init the DataModel in the application
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ChatAppModel")
 
@@ -22,7 +22,7 @@ class CoreDataStack {
 
     }()
 
-//    saves changes to the coredata
+//    saves changes to the coredatamodel
     func saveContext() {
         let context = persistentContainer.viewContext
 

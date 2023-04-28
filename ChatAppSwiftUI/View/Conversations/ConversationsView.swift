@@ -4,52 +4,58 @@
 import SwiftUI
 // Main view for all started chats, also where you can create new chats
 struct ConversationsView: View {
+    // show a new chat
     @State private var showNewMessageView = false
+    // show a old chat
     @State private var showChatView = false
-    // ref the user for chat
     @State var selectedUser: User?
+//    ref to the viewModel where the message array and fetching functionality is located
     @ObservedObject var viewModel = ConversationsViewModel()
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            if let user = selectedUser {
-                NavigationLink(
-                    destination: ChatView(user: user),
-                    isActive: $showChatView,
-                    label: { })
-            }
-            ScrollView {
-                VStack {
-                    ForEach(viewModel.recentMessages) { message in
-                        ConversationCell(viewModel: ConversationCellViewModel(message))
+        NavigationView {
+            ZStack(alignment: .bottomTrailing) {
+//                if you select a user to continue chatting with
+                if let user = selectedUser {
+                    NavigationLink(
+                        destination: ChatView(user: user),
+                        isActive: $showChatView,
+                        label: { })
+                }
+
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ForEach(viewModel.recentMessages) { message in
+                            ConversationCell(viewModel: ConversationCellViewModel(message))
+                        }
                     }
                 }
-            }
 
-            Button {
-                showNewMessageView.toggle()
-            } label: {
-                Image(systemName: "pencil")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 24, height: 24)
-                    .padding()
+//                or starting a new chat with someone here
+                Button {
+                    showNewMessageView.toggle()
+                } label: {
+                    Image(systemName: "square.and.pencil")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                        .padding()
+                }
+                .background(.orange)
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .padding()
+                .sheet(isPresented: $showNewMessageView) {
+                    NewMessageView(showChatView: $showChatView, user: $selectedUser)
+                        // Pass the view model to the new message view
+                        .environmentObject(viewModel)
+                }
             }
-            .background(.orange)
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .padding()
-            .sheet(isPresented: $showNewMessageView, content: {
-                NewMessageView(showChatView: $showChatView, user: $selectedUser)
-                // Pass the view model to the new message view
-                    .environmentObject(viewModel)
-            })
-        }
-        .onAppear {
-            viewModel.fetchRecentMessages()
+            .onAppear {
+                viewModel.fetchRecentMessages()
+            }
         }
     }
-    
 }
 
 struct ConversationsView_Previews: PreviewProvider {

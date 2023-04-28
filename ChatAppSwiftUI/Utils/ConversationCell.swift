@@ -3,7 +3,7 @@
 // TODO:
 
 import SwiftUI
-
+//this is where the user get displayed in the ConversationView, with their name and the lates message
 struct ConversationCell: View {
     @ObservedObject var viewModel: ConversationCellViewModel
 
@@ -20,6 +20,7 @@ struct ConversationCell: View {
                             Text(viewModel.fullname)
                                 .font(.system(size: 14, weight: .semibold))
 
+//                            max 1 line to not take to much space from other users inside ConversationView
                             Text(viewModel.message.text)
                                 .font(.system(size: 14))
                                 .lineLimit(1)

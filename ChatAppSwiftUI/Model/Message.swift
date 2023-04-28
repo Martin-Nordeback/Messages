@@ -12,7 +12,8 @@ struct Message: Identifiable, Decodable {
     let timestamp: Timestamp
 
     var user: User?
-    
+    /* This init takes a dictionary of String keys and Any values, then sets the properties of the Message struct using the dictionary values.
+     If any values are missing or of the wrong type, the properties are set to default values. */
     init(from data: [String: Any]) {
         id = data["id"] as? String
         text = data["text"] as? String ?? ""
@@ -23,6 +24,7 @@ struct Message: Identifiable, Decodable {
         user = nil
     }
 
+    // same as above but for coredata
     init(messageEntity: MessageEntity) {
         id = messageEntity.id
         text = messageEntity.text ?? ""
@@ -33,6 +35,7 @@ struct Message: Identifiable, Decodable {
         user = nil
     }
 
+    // Without the CodingKeys, Swift would not know which properties to encode or decode and what keys to use in the encoded data.
     enum CodingKeys: String, CodingKey {
         case id
         case fromId
@@ -42,4 +45,3 @@ struct Message: Identifiable, Decodable {
         case timestamp
     }
 }
-

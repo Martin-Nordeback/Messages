@@ -1,27 +1,27 @@
-
-
 import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 class AuthViewModel: NSObject, ObservableObject {
     @Published var didAuthenticateUser = false
-    //rep the current users state
+    // rep the current users state
     @Published var userSession: FirebaseAuth.User?
     @Published var currentUser: User?
 
-    //Stores users temporary after the got created
+    // Stores users temporary after the got created
     private var tempCurrentUser: FirebaseAuth.User?
 
-    //their is only 1 instance of this class
+    // their is only 1 instance of this class
     static let shared = AuthViewModel()
 
-    //init the userSession, with the current user
+    // init the userSession, with the current user
     override init() {
         super.init()
         userSession = Auth.auth().currentUser
         fetchUser()
     }
 
-    //login in user, with email and password,
+    // login in user, with email and password,
     func login(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             if let error = error {
@@ -29,7 +29,7 @@ class AuthViewModel: NSObject, ObservableObject {
                 return
             }
 
-            //if successful, update the user session and fetching the data from the user
+            // if successful, update the user session and fetching the data from the user
             guard (result?.user) != nil else { return }
             self.userSession = result?.user
             self.fetchUser()
@@ -59,10 +59,12 @@ class AuthViewModel: NSObject, ObservableObject {
         }
     }
 
+//    next version will this be done
     func uploadProfileImage(_ image: UIImage) {
         print("DEBUG: Successfully User updated picture from viewModel")
     }
 
+    // sign out from
     func signout() {
         userSession = nil
         try? Auth.auth().signOut()
