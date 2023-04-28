@@ -1,8 +1,11 @@
 
+import Combine
+import Firebase
 import SwiftUI
 
 class ConversationsViewModel: ObservableObject {
     @Published var recentMessages = [Message]()
+
     init() {
         fetchRecentMessages()
     }
@@ -13,7 +16,7 @@ class ConversationsViewModel: ObservableObject {
             .collection("recent-messages")
             .order(by: "timestamp", descending: true)
 
-        query.getDocuments { snapshot, _ in
+        query.addSnapshotListener { snapshot, _ in
             guard let documents = snapshot?.documents else { return }
             self.recentMessages = documents.compactMap({ try? $0.data(as: Message.self) })
         }

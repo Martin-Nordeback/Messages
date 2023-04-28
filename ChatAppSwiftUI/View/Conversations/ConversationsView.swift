@@ -1,13 +1,12 @@
 
 // TODO: fix deprecated navigationlink with something like "NavigationLink(value: ChatView.self, label: {})"
 
-
 import SwiftUI
-//Main view for all started chats, also where you can create new chats
+// Main view for all started chats, also where you can create new chats
 struct ConversationsView: View {
     @State private var showNewMessageView = false
     @State private var showChatView = false
-    //ref the user for chat
+    // ref the user for chat
     @State var selectedUser: User?
     @ObservedObject var viewModel = ConversationsViewModel()
 
@@ -42,12 +41,15 @@ struct ConversationsView: View {
             .padding()
             .sheet(isPresented: $showNewMessageView, content: {
                 NewMessageView(showChatView: $showChatView, user: $selectedUser)
+                // Pass the view model to the new message view
+                    .environmentObject(viewModel)
             })
         }
         .onAppear {
             viewModel.fetchRecentMessages()
         }
     }
+    
 }
 
 struct ConversationsView_Previews: PreviewProvider {

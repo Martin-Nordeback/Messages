@@ -22,6 +22,7 @@ struct ConversationCell: View {
 
                             Text(viewModel.message.text)
                                 .font(.system(size: 14))
+                                .lineLimit(1)
                         }
                         .foregroundColor(.primary)
                         Spacer()

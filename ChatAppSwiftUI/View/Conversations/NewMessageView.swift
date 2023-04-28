@@ -1,5 +1,5 @@
 
-// TODO: When starting a new chat you should get straigt in to that 
+// TODO: When starting a new chat you should get straigt in to that
 // TODO: SearchField
 // TODO:
 
@@ -14,24 +14,40 @@ struct NewMessageView: View {
     @ObservedObject var viewModel = NewMessageViewModel()
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView {
-                // Add search bar
-
                 VStack(alignment: .leading) {
+                    SearchBar(text: $searchText, isEditing: $isEditing)
+
                     ForEach(viewModel.users) { user in
-                        Button {
+                        Button(action: {
                             showChatView.toggle()
                             self.user = user
                             mode.wrappedValue.dismiss()
-                        } label: {
+                        }, label: {
                             UserCell(user: user)
-                        }
+                        })
                     }
                 }
+                .padding(.top)
             }
+            .onAppear {
+                viewModel.fetchUsers()
+            }
+            .navigationTitle("New Chat")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(trailing: Button(action: {
+                mode.wrappedValue.dismiss()
+            }, label: {
+                Text("Cancel")
+            }))
         }
-        .searchable(text: $searchText)
     }
 }
 
+struct NewMessageView_Previews: PreviewProvider {
+    static var previews: some View {
+        NewMessageView(showChatView: .constant(false), user: .constant(nil))
+            .preferredColorScheme(.dark)
+    }
+}

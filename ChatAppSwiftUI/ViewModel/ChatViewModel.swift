@@ -13,17 +13,16 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
     init(user: User) {
         self.user = user
         super.init()
-        fetchMessagesFromCoreData()
+//        fetchMessagesFromCoreData()
         fetchMessagesFromFirebase()
     }
-    
-// MARK: FETCHMESSAGESFROMCOREDATA
-    
+
+    // MARK: FETCHMESSAGESFROMCOREDATA
+
     func fetchMessagesFromCoreData() {
         let context = CoreDataStack.sharedCoreData.persistentContainer.viewContext
 //        let fetchRequest: NSFetchRequest<MessageEntityModel> = MessageEntityModel.fetchRequest()
         let fetchRequest: NSFetchRequest<MessageEntity> = MessageEntity.fetchRequest()
-
 
         // add a sort descriptor to the fetch request to avoid the "sort descriptors missing" error
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \MessageEntity.timestamp, ascending: true)]
@@ -44,8 +43,9 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
             print("Error fetching messages from CoreData: \(error)")
         }
     }
-    
-// MARK: FETCHMESSAGESFROMFIREBASE
+
+    // MARK: FETCHMESSAGESFROMFIREBASE
+
     func fetchMessagesFromFirebase() {
         guard let currentUid = AuthViewModel.shared.userSession?.uid else { return }
         guard let chatPartnerId = user.id else { return }
@@ -56,7 +56,10 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
             .order(by: "timestamp", descending: false)
 
         query.addSnapshotListener { snapshot, _ in
-            guard let changes = snapshot?.documentChanges, !changes.isEmpty else { return }
+            guard let changes = snapshot?.documentChanges, !changes.isEmpty else {
+                self.fetchMessagesFromCoreData()
+                return
+            }
             let addedChanges = changes.filter { $0.type == .added }
             guard !addedChanges.isEmpty else { return }
 
@@ -71,7 +74,6 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
 
             self.saveMessagesToCoreData(messages: messagesToSave)
             self.messages.append(contentsOf: messages)
-
         }
     }
 
@@ -105,7 +107,7 @@ class ChatViewModel: NSObject, ObservableObject, NSFetchedResultsControllerDeleg
                                    "timestamp": Timestamp(date: Date()),
                                    "id": messageId,
         ]
-        
+
         var message = Message(from: data)
         message.user = user
         saveMessagesToCoreData(messages: [message])

@@ -8,6 +8,5 @@ struct User: Identifiable, Decodable {
     let username: String
     let fullname: String
     let email: String
-    
 
 }
