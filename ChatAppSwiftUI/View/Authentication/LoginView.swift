@@ -15,7 +15,7 @@ struct LoginView: View {
                     Text(HELLO)
                         .font(.largeTitle)
                         .bold()
-                    Text("Welcome back")
+                    Text(WELCOME)
                         .font(.largeTitle)
                         .bold()
                         .foregroundColor(.orange)
