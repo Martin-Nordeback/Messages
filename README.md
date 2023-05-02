@@ -7,6 +7,7 @@ This application allows users to create an account, sign in, send and receive me
 
 - User authentication using Firebase Authentication
 - Firestore database to store messages and user data
+- CoreData to store local messages and user data if the internet connection is interrupted
 - Create a new account with email and password
 - Sign in with an existing account
 - View a list of chat conversations with other users
